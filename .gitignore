@@ -34,3 +34,6 @@ local_settings.py
 
 # IDE
 .idea
+
+# numpy storage
+*.npy
