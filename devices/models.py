@@ -30,3 +30,16 @@ class Device(TimeStampedModel):
 
     def __unicode__(self):
         return self.name
+
+
+class Wash(TimeStampedModel):
+    device = models.ForeignKey(Device, verbose_name=_(u"Device"), related_name='washes')
+    data_file = models.CharField(max_length=200, verbose_name=_(u"Data file"))
+
+    class Meta:
+        verbose_name = _(u"Wash")
+        verbose_name_plural = _(u"Washes")
+        ordering = ['-modified']
+
+    def __unicode__(self):
+        return u"%s - wash %d" % (self.device.name, self.id)
