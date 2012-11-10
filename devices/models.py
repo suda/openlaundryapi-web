@@ -17,7 +17,7 @@ class DeviceQuerySet(QuerySet):
 
 
 class Device(TimeStampedModel):
-    user = models.ForeignKey(User, verbose_name=_(u"Device owner"), related_name='devices')
+    user = models.ForeignKey(User, null=True, blank=True, verbose_name=_(u"Device owner"), related_name='devices')
     device_id = models.CharField(max_length=50, verbose_name=_(u"Device ID"))
     name = models.CharField(max_length=100, verbose_name=_(u"Device name"))
 
