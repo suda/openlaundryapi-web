@@ -16,11 +16,4 @@
 {% endblock %}
 
 {% block sidebar %}
-    <ul class="nav nav-list">
-        <li class="nav-header"><i class="icon-cog"></i>{% trans 'Settings' %}</li>
-        {% trans 'Edit profile' as caption %}{% active_nav_item caption '/dashboard/edit_profile' 'users-edit_profile' %}
-        {% trans 'Accounts' as caption %}{% active_nav_item caption 'dashboard/accounts' 'users-edit_accounts' %}
-        <li class="nav-header">{% trans 'Advertisement' %}</li>
-        <li><img src="http://dummyimage.com/150x600/eee/aaa.png" /></li>
-    </ul>
 {% endblock %}
