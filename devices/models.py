@@ -34,7 +34,7 @@ class Device(TimeStampedModel):
 
 class Wash(TimeStampedModel):
     device = models.ForeignKey(Device, verbose_name=_(u"Device"), related_name='washes')
-    data_file = models.CharField(max_length=200, verbose_name=_(u"Data file"))
+    data_file = models.CharField(max_length=200, blank=True, default='', verbose_name=_(u"Data file"))
 
     class Meta:
         verbose_name = _(u"Wash")
