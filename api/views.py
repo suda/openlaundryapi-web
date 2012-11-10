@@ -62,6 +62,8 @@ def collect_data(request):
             'message': str(e),
         })
     return json_response({
+        'device_id': device.device_id,
+        'wash_id': wash.id,
         'status': 'OK',
     })
 
