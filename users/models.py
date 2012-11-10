@@ -1,3 +1,10 @@
+
+from django.contrib.auth.models import User
 from django.db import models
 
-# Create your models here.
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    token = models.CharField(max_length=40)
+    debug = models.BooleanField(default=False)
+

@@ -208,6 +208,8 @@ LOGGING = {
     }
 }
 
+AUTH_PROFILE_MODULE = 'users.UserProfile'
+
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.twitter.TwitterBackend',
     'social_auth.backends.facebook.FacebookBackend',
