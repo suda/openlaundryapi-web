@@ -40,6 +40,7 @@ class Wash(TimeStampedModel):
         verbose_name = _(u"Wash")
         verbose_name_plural = _(u"Washes")
         ordering = ['-modified']
+        get_latest_by = 'modified'
 
     def __unicode__(self):
         return u"%s - wash %d" % (self.device.name, self.id)

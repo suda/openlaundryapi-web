@@ -253,6 +253,8 @@ FACEBOOK_API_SECRET = ''
 GITHUB_APP_ID = ''
 GITHUB_API_SECRET = ''
 
+WASH_DATA_ROOT = project_path('../data/')
+
 try:
     from local_settings import *
 except ImportError:
