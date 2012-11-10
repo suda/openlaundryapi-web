@@ -13,8 +13,8 @@ django-social-auth==0.7.8
 django-tastypie==0.9.11
 django-widget-tweaks==1.1.2
 oauth2==1.5.211
-psycopg2==2.4.5
-pycrypto==2.6
+psycopg2==2.3.2
+pycrypto==2.3
 python-dateutil==1.5
 python-openid==2.2.5
 pytz==2012h

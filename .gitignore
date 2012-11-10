@@ -31,3 +31,6 @@ pip-log.txt
 
 # Django
 local_settings.py
+
+# IDE
+.idea
