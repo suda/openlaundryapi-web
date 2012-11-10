@@ -71,8 +71,19 @@ def collect_data(request):
 @csrf_exempt
 def device_status(request, device_id):
     device = get_object_or_404(Device, device_id=device_id)
+    try:
+        wash = device.washes.latest()
+    except Wash.DoesNotExist:
+        wash = None
+    if wash is not None:
+        time_started = str(wash.created)
+    else:
+        time_started = ''
     return json_response({
         'device_id': device.device_id,
         'name': device.name,
-        'status': 'FINISHED',
+        'status': 'IDLE',
+        'program': '',
+        'time_remaining': '00:00:00',
+        'time_started': time_started,
     })
