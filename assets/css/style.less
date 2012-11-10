@@ -15,47 +15,6 @@ section h1 {
     text-align: center;
     width: 24px;
 }
-.event-date {
-    color: @grayLight;
-}
-.big-num {
-    padding: 4px 0;
-    color: @gray;
-    background: #fcfcfc;
-        .transition(background 0.2s linear);
-
-    .btn {
-        opacity: 0;
-        .transition(opacity 0.2s linear);
-    }
-}
-.big-num:hover {
-    background: #ececec;
-    .btn {
-        opacity: 1;
-    }
-}
-.number-row {
-    display: table-row;
-
-    .number {
-        display: table-cell;
-        vertical-align: top;
-        color: @grayLight;
-        line-height: 40px;
-        font-size: 40px;
-        font-weight: bold;
-    }
-    .caption {
-        display: table-cell;
-        padding-left: 2px;
-        vertical-align: top;
-        color: @grayLight;
-        font-size: 10px;
-        text-transform: uppercase;
-        height: 40px;
-    }
-}
 .item-list {
     margin-bottom: 0;
 
@@ -82,12 +41,6 @@ section h1 {
 .login-buttons {
     text-align: center;
 }
-.thumbnails.attending {
-    li {
-        margin-bottom: 10px;
-        margin-left: 10px;
-    }
-    .organiser {
-        border-color: @blueDark;
-    }
+.dropdown-toggle * {
+    vertical-align: top;
 }
