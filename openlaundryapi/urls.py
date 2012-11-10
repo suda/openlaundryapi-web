@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     url(r'^$', 'openlaundryapi.views.index', name='main'),
     url(r'^logout/$', logout, name='logout', kwargs={'next_page': '/'}),
 
+    url(r'^api/', include('api.urls')),
     url(r'^users/', include('users.urls')),
     url(r'^devices/', include('devices.urls')),
 

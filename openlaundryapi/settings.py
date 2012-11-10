@@ -152,6 +152,7 @@ INSTALLED_APPS = (
     'tastypie',
     'bootstrap-pagination',
 
+    'api',
     'users',
     'utils',
     'devices',
