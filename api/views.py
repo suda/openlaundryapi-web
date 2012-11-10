@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
 from devices.models import Device, Wash
+from users.models import UserProfile
 
 
 logger = logging.getLogger(__name__)
@@ -23,16 +24,16 @@ def json_response(data):
 
 
 @csrf_exempt
-def collect_data(request):
+def collect_data(request, device_id, token):
+    profile = get_object_or_404(UserProfile, token=token)
     try:
         data = json.loads(request.body)
-        device_id = data['device_id']
 
         # find device
         try:
-            device = Device.objects.get(device_id=device_id)
+            device = Device.objects.get(device_id=device_id, user=profile.user)
         except Device.DoesNotExist:
-            device = Device.objects.create(device_id=device_id, name=device_id)
+            device = Device.objects.create(device_id=device_id, name=device_id, user=profile.user)
         wash = device.get_latest_wash()
 
         logger.info('Incoming data from device: %s', device)

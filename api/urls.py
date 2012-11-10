@@ -4,7 +4,7 @@ from api import views
 
 urlpatterns = patterns('api.views',
     url(
-        regex=r'^$',
+        regex=r'^device/(?P<device_id>\w+)/(?P<token>\w+)/$',
         view=views.collect_data,
         name='api-collect_data',
     ),
