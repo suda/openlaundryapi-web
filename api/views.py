@@ -3,6 +3,9 @@
 import os
 import logging
 import simplejson as json
+import datetime
+import time
+import math
 
 import numpy as np
 from django.http import HttpResponse
@@ -82,14 +85,54 @@ def set_status(request, device_id, token):
 @csrf_exempt
 def device_status(request, device_id):
     device = get_object_or_404(Device, device_id=device_id)
-    response_dict = {
-        'device_id': device.device_id,
-        'name': device.name,
-        'status': device.status,
-        'program': '',
-    }
-    wash = device.get_latest_wash()
-    response_dict['time_started'] = str(wash.created)
-    if device.status in ['WORKING', 'PAUSED']:
-        response_dict['time_remaining'] = '00:00:00'
+    user_profile = device.user.get_profile()
+
+    programs = [
+        { 'progress': 0, 'program': 'A' },
+        { 'progress': 20, 'program': 'B' },
+        { 'progress': 45, 'program': 'C' },
+        { 'progress': 70, 'program': 'D' },
+        { 'progress': 75, 'program': 'E' },
+        { 'progress': 85, 'program': 'F' },
+    ]
+
+    if user_profile.debug:
+        interval = 60 * 10
+        timestamp = time.mktime(datetime.datetime.now().timetuple())
+        progress = timestamp / interval
+        time_start = interval * math.floor(progress)
+        progress = progress - math.floor(progress)
+        print progress
+
+        current_program = ''
+        for program in programs:
+            if progress * 100 > program['progress']:
+                current_program = program['program']
+
+        status = 'WORKING'
+        if progress * 100 > 90:
+            current_program = None
+            status = 'IDLE'
+
+        response_dict = {
+            'device_id': device.device_id,
+            'name': device.name,
+            'status': status,
+            'program': current_program,
+            'time_started': None if status == 'IDLE' else datetime.datetime.fromtimestamp(time_start).isoformat(),
+            'time_remaining': None if status == 'IDLE' else str(datetime.timedelta(seconds=(interval - (interval * progress))))
+        }
+
+    else:
+        response_dict = {
+            'device_id': device.device_id,
+            'name': device.name,
+            'status': device.status,
+            'program': '',
+        }
+        wash = device.get_latest_wash()
+        response_dict['time_started'] = str(wash.created)
+        if device.status in ['WORKING', 'PAUSED']:
+            response_dict['time_remaining'] = '00:00:00'
+
     return json_response(response_dict)
