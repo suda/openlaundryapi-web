@@ -7,6 +7,7 @@ import simplejson as json
 import numpy as np
 from django.conf import settings
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
 from devices.models import Device, Wash
@@ -62,4 +63,14 @@ def collect_data(request):
         })
     return json_response({
         'status': 'OK',
+    })
+
+
+@csrf_exempt
+def device_status(request, device_id):
+    device = get_object_or_404(Device, device_id=device_id)
+    return json_response({
+        'device_id': device.device_id,
+        'name': device.name,
+        'status': 'FINISHED',
     })

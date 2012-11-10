@@ -8,4 +8,9 @@ urlpatterns = patterns('api.views',
         view=views.collect_data,
         name='api-collect_data',
     ),
+    url(
+        regex=r'^device/(?P<device_id>\w+)/$',
+        view=views.device_status,
+        name='api-device_status',
+    ),
 )
