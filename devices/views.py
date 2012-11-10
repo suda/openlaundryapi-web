@@ -15,3 +15,10 @@ class DeviceListView(ListView):
     context_object_name = 'devices'
     paginate_by = 10
 
+
+class DeviceDetailView(DetailView):
+    model = Device
+    context_object_name = 'device'
+    slug_field = slug_url_kwarg = 'device_id'
+    template_name = "devices/device.html"
+

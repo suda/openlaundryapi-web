@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load bootstrap_pagination %}
+
+{% block title %}{% trans 'Device' %} {{ device.name }} | {{ block.super }}{% endblock %}
+{% block page-header %}
+    {% trans 'Device' %} {{ device.name }}
+{% endblock %}
+
+{% block content %}
+    <div class="well">
+        <b>ID:</b> {{ device.device_id }}<br>
+        <b>Status:</b> {{ device.status }}<br>
+    </div>
+{% endblock %}
+

@@ -8,4 +8,9 @@ urlpatterns = patterns('devices.views',
         view=views.DeviceListView.as_view(),
         name='devices-device_list',
     ),
+    url(
+        regex=r'^(?P<device_id>\w+)/$',
+        view=views.DeviceDetailView.as_view(),
+        name='devices-device_detail',
+    ),
 )

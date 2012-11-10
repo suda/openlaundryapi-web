@@ -40,7 +40,10 @@ class EditAccountsView(LoginRequiredMixin, TemplateView):
 
 @login_required
 def edit_profile(request):
-    form = UserForm(request.POST or None, instance=request.user)
+    initial = {
+        'debug': request.user.get_profile().debug,
+    }
+    form = UserForm(request.POST or None, instance=request.user, initial=initial)
     if form.is_valid():
         form.save()
         messages.success(request, _(u"Profile information has been updated."))

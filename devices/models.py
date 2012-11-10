@@ -40,6 +40,10 @@ class Device(TimeStampedModel):
     def __unicode__(self):
         return self.name
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('devices-device_detail', [], {'device_id': self.device_id})
+
     def get_latest_wash(self):
         try:
             wash = self.washes.latest()
