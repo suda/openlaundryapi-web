@@ -18,5 +18,8 @@
 {% block sidebar %}
     <ul class="nav nav-list">
         <li class="nav-header"><i class="icon-bolt"></i>{% trans 'My devices' %}</li>
+        {% for device in user.devices.all %}
+            <li><a href="#">{{ device.name }}</a></li>
+        {% endfor %}
     </ul>
 {% endblock %}
