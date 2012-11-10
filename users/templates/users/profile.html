@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load gravatar %}
+{% load navigation_tags %}
+
+{% block title %}{{ user_obj.username }} | {{ block.super }}{% endblock %}
+{% block page-header %}
+    {% gravatar_img_for_user user_obj 80 %}
+    {{ user_obj.get_full_name }}
+    <small>
+        {% if user_obj == user %}
+            {% trans "This is you!" %}
+        {% else %}
+            {{ user_obj.username }}
+        {% endif %}
+    </small>
+{% endblock %}
+
+{% block content %}
+{% endblock %}

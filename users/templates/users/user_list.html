@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load gravatar %}
+{% load bootstrap_pagination %}
+{% load navigation_tags %}
+
+{% block title %}{% trans 'Users' %} | {{ block.super }}{% endblock %}
+{% block page-header %}
+    {% trans 'Users' %}
+{% endblock %}
+
+{% block content %}
+    <ul class="unstyled item-list">
+    {% for user_obj in users %}
+        <li class="row">
+            <div class="span1">
+                <a href="{{ user_obj.get_absolute_url }}">
+                    {% gravatar_img_for_user user_obj 60 %}
+                </a>
+            </div>
+            <div class="span8">
+                <a href="{{ user_obj.get_absolute_url }}">
+                <h3>
+                    {{ user_obj.username }}
+                </h3>
+                <h4>{{ user_obj.get_full_name }}</h4>
+                </a>
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+    {% bootstrap_paginate page_obj %}
+{% endblock %}
+

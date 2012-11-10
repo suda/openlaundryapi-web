@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+
+{% block page-header-wrap %}{% endblock %}
+
+{% block content %}
+    <div class="hero-unit">
+        <h1>{% trans 'Oh snap!' %}</h1>
+        <p>
+            {% blocktrans %}
+                We tried. We tried really, really hard to find that page.
+                Alas, it was nowhere to be seen. That's a four-oh-four, 404.
+            {% endblocktrans %}
+        </p>
+    </div>
+{% endblock %}

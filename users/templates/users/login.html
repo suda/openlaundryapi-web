@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+
+{% block title %}{% trans 'Sign in' %} | {{ block.super }}{% endblock %}
+{% block page-header %}
+    {% trans 'Sign in' %}
+{% endblock %}
+
+{% block content %}
+    <div class="well login-buttons">
+        {% for backend in social_auth.backends %}
+            <a class="btn btn-primary btn-large" href="{% url 'socialauth_begin' backend %}?{{ redirect_querystring }}">
+                <i class="icon-{{ backend }}"></i>
+                {{ backend|capfirst }}
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}
+

@@ -1,0 +1,93 @@
+@import "bootstrap";
+@import "datepicker";
+@import "timepicker";
+
+section h1 {
+    font-family: Georgia, serif;
+}
+
+.container > footer p {
+    text-align: center;
+}
+
+.table.accounts i[class^="icon-"]:before {
+    display: inline-block;
+    text-align: center;
+    width: 24px;
+}
+.event-date {
+    color: @grayLight;
+}
+.big-num {
+    padding: 4px 0;
+    color: @gray;
+    background: #fcfcfc;
+        .transition(background 0.2s linear);
+
+    .btn {
+        opacity: 0;
+        .transition(opacity 0.2s linear);
+    }
+}
+.big-num:hover {
+    background: #ececec;
+    .btn {
+        opacity: 1;
+    }
+}
+.number-row {
+    display: table-row;
+
+    .number {
+        display: table-cell;
+        vertical-align: top;
+        color: @grayLight;
+        line-height: 40px;
+        font-size: 40px;
+        font-weight: bold;
+    }
+    .caption {
+        display: table-cell;
+        padding-left: 2px;
+        vertical-align: top;
+        color: @grayLight;
+        font-size: 10px;
+        text-transform: uppercase;
+        height: 40px;
+    }
+}
+.item-list {
+    margin-bottom: 0;
+
+    h3 {
+        margin: 0;
+    }
+    h4 {
+        margin: 0;
+        color: @gray;
+        font-weight: normal;
+        font-size: 100%;
+    }
+    .row {
+        margin-bottom: 20px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+.pull-right + h2 {
+    clear: both;
+}
+.login-buttons {
+    text-align: center;
+}
+.thumbnails.attending {
+    li {
+        margin-bottom: 10px;
+        margin-left: 10px;
+    }
+    .organiser {
+        border-color: @blueDark;
+    }
+}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+
+{% block page-header-wrap %}{% endblock %}
+
+{% block content %}
+    <div class="hero-unit">
+        <h1>{% trans 'Welcome to Open Laundry API!' %}</h1>
+        <p>
+            {% blocktrans %}
+                We connect your washing machine to the Internet ;)
+            {% endblocktrans %}
+        </p>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    <ul class="nav nav-list">
+        <li class="nav-header"><i class="icon-bolt"></i>{% trans 'My devices' %}</li>
+    </ul>
+{% endblock %}
