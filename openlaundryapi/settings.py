@@ -186,7 +186,7 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'formatter': 'simple',
-            'filename': '../debug.log',
+            'filename': project_path('../debug.log'),
         },
     },
     'loggers': {
