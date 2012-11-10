@@ -1,3 +1,6 @@
+*~
+*.swp
+
 *.py[co]
 
 # Packages
@@ -25,3 +28,6 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+# Django
+local_settings.py
