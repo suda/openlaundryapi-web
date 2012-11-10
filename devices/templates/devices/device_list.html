@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load bootstrap_pagination %}
+
+{% block title %}{% trans 'Devices' %} | {{ block.super }}{% endblock %}
+{% block page-header %}
+    {% trans 'Devices' %}
+{% endblock %}
+
+{% block content %}
+    <ul class="unstyled item-list">
+    {% for device in devices %}
+        <li class="row">
+            <div class="span9">
+                <h3>
+                    <a href="#">{{ device.name }}</a>
+                </h3>
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+
+    {% bootstrap_paginate page_obj %}
+{% endblock %}
+

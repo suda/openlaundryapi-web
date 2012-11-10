@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^logout/$', logout, name='logout', kwargs={'next_page': '/'}),
 
     url(r'^users/', include('users.urls')),
+    url(r'^devices/', include('devices.urls')),
 
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
