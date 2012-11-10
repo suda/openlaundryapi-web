@@ -28,7 +28,6 @@
                 {% trans 'Dashboard' as caption %}{% active_nav_item caption '^/users/dashboard' 'users-dashboard' %}
               {% endif %}
               {% trans 'Devices' as caption %}{% active_nav_item caption '^/devices/$' 'devices-device_list' %}
-              {% trans 'Users' as caption %}{% active_nav_item caption '^/users/$' 'users-user_list' %}
             {% if user.is_staff %}
               <li><a href="{% url 'admin:index' %}">{% trans 'Administration' %}</a></li>
             {% endif %}
