@@ -5,12 +5,12 @@ import logging
 import simplejson as json
 
 import numpy as np
-from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
 from devices.models import Device, Wash
+from users.models import UserProfile
 
 
 logger = logging.getLogger(__name__)
@@ -24,25 +24,17 @@ def json_response(data):
 
 
 @csrf_exempt
-def collect_data(request):
+def collect_data(request, device_id, token):
+    profile = get_object_or_404(UserProfile, token=token)
     try:
         data = json.loads(request.body)
-        device_id = data['device_id']
 
         # find device
         try:
-            device = Device.objects.get(device_id=device_id)
+            device = Device.objects.get(device_id=device_id, user=profile.user)
         except Device.DoesNotExist:
-            device = Device.objects.create(device_id=device_id, name=device_id)
-
-        # find latest wash
-        try:
-            wash = device.washes.latest()
-        except Wash.DoesNotExist:
-            wash = Wash.objects.create(device=device)
-            filename = '%d.wash.npy' % wash.id
-            wash.data_file = os.path.join(settings.WASH_DATA_ROOT, filename)
-            wash.save()
+            device = Device.objects.create(device_id=device_id, name=device_id, user=profile.user)
+        wash = device.get_latest_wash()
 
         logger.info('Incoming data from device: %s', device)
         timestamp_start = long(data['timestamp_start'])
@@ -69,6 +61,25 @@ def collect_data(request):
 
 
 @csrf_exempt
+def set_status(request, device_id, token):
+    profile = get_object_or_404(UserProfile, token=token)
+    device = get_object_or_404(Device, device_id=device_id, user=profile.user)
+    try:
+        device.status = request.body
+        device.save()
+    except Exception as e:
+        logger.exception(u"Set status error")
+        return json_response({
+            'status': 'ERROR',
+            'message': str(e),
+        })
+    return json_response({
+        'device_id': device.device_id,
+        'status': 'OK',
+    })
+
+
+@csrf_exempt
 def device_status(request, device_id):
     device = get_object_or_404(Device, device_id=device_id)
     response_dict = {
@@ -77,11 +88,8 @@ def device_status(request, device_id):
         'status': device.status,
         'program': '',
     }
-    try:
-        wash = device.washes.latest()
-        response_dict['time_started'] = str(wash.created)
-        if device.status in ['WORKING', 'PAUSED']:
-            response_dict['time_remaining'] = '00:00:00'
-    except Wash.DoesNotExist:
-        pass
+    wash = device.get_latest_wash()
+    response_dict['time_started'] = str(wash.created)
+    if device.status in ['WORKING', 'PAUSED']:
+        response_dict['time_remaining'] = '00:00:00'
     return json_response(response_dict)
