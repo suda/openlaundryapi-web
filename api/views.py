@@ -82,7 +82,7 @@ def device_status(request, device_id):
     return json_response({
         'device_id': device.device_id,
         'name': device.name,
-        'status': 'IDLE',
+        'status': device.status,
         'program': '',
         'time_remaining': '00:00:00',
         'time_started': time_started,

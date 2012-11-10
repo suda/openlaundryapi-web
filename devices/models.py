@@ -9,6 +9,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from model_utils.managers import PassThroughManager
 from model_utils.models import TimeStampedModel
+from model_utils.fields import MonitorField, StatusField
+from model_utils import Choices
 
 
 class DeviceQuerySet(QuerySet):
@@ -17,9 +19,13 @@ class DeviceQuerySet(QuerySet):
 
 
 class Device(TimeStampedModel):
+    STATUS = Choices('IDLE', 'PAUSED', 'WORKING', 'LEARNING')
     user = models.ForeignKey(User, null=True, blank=True, verbose_name=_(u"Device owner"), related_name='devices')
     device_id = models.CharField(max_length=50, verbose_name=_(u"Device ID"))
     name = models.CharField(max_length=100, verbose_name=_(u"Device name"))
+
+    status = StatusField()
+    status_changed = MonitorField(monitor='status')
 
     objects = PassThroughManager.for_queryset_class(DeviceQuerySet)()
 
