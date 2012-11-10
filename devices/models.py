@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+import os
+
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Q
@@ -36,6 +39,16 @@ class Device(TimeStampedModel):
 
     def __unicode__(self):
         return self.name
+
+    def get_latest_wash(self):
+        try:
+            wash = self.washes.latest()
+        except Wash.DoesNotExist:
+            wash = Wash.objects.create(device=self)
+            filename = '%d.wash.npy' % wash.id
+            wash.data_file = os.path.join(settings.WASH_DATA_ROOT, filename)
+            wash.save()
+        return wash
 
 
 class Wash(TimeStampedModel):

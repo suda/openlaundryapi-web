@@ -5,7 +5,6 @@ import logging
 import simplejson as json
 
 import numpy as np
-from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
@@ -34,15 +33,7 @@ def collect_data(request):
             device = Device.objects.get(device_id=device_id)
         except Device.DoesNotExist:
             device = Device.objects.create(device_id=device_id, name=device_id)
-
-        # find latest wash
-        try:
-            wash = device.washes.latest()
-        except Wash.DoesNotExist:
-            wash = Wash.objects.create(device=device)
-            filename = '%d.wash.npy' % wash.id
-            wash.data_file = os.path.join(settings.WASH_DATA_ROOT, filename)
-            wash.save()
+        wash = device.get_latest_wash()
 
         logger.info('Incoming data from device: %s', device)
         timestamp_start = long(data['timestamp_start'])
@@ -77,11 +68,8 @@ def device_status(request, device_id):
         'status': device.status,
         'program': '',
     }
-    try:
-        wash = device.washes.latest()
-        response_dict['time_started'] = str(wash.created)
-        if device.status in ['WORKING', 'PAUSED']:
-            response_dict['time_remaining'] = '00:00:00'
-    except Wash.DoesNotExist:
-        pass
+    wash = device.get_latest_wash()
+    response_dict['time_started'] = str(wash.created)
+    if device.status in ['WORKING', 'PAUSED']:
+        response_dict['time_remaining'] = '00:00:00'
     return json_response(response_dict)
