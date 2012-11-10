@@ -32,6 +32,7 @@
                   {{ user }} <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
+                  <li><a href="{% url 'users-dashboard' %}">{% trans 'Dashboard' %}</a></li>
                   <li><a href="{% url 'users-edit_profile' %}">{% trans 'Edit profile' %}</a></li>
                   <li><a href="{% url 'users-edit_accounts' %}">{% trans 'Accounts' %}</a></li>
                   <li class="divider"></li>

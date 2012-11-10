@@ -13,6 +13,12 @@
 
 {% block content %}
     <b>Your token: </b> {{ user.get_profile.token }}
+    <h2>Your devices</h2>
+    <ul>
+        {% for device in user.devices.all %}
+            <li><a href="{{ device.get_absolute_url }}">{{ device.name }}</a></li>
+        {% endfor %}
+    </ul>
 {% endblock %}
 
 {% block sidebar %}
