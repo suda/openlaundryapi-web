@@ -9,6 +9,11 @@ urlpatterns = patterns('api.views',
         name='api-collect_data',
     ),
     url(
+        regex=r'^device/(?P<device_id>\w+)/(?P<token>\w+)/status/$',
+        view=views.set_status,
+        name='api-set_status',
+    ),
+    url(
         regex=r'^device/(?P<device_id>\w+)/$',
         view=views.device_status,
         name='api-device_status',

@@ -61,6 +61,25 @@ def collect_data(request, device_id, token):
 
 
 @csrf_exempt
+def set_status(request, device_id, token):
+    profile = get_object_or_404(UserProfile, token=token)
+    device = get_object_or_404(Device, device_id=device_id, user=profile.user)
+    try:
+        device.status = request.body
+        device.save()
+    except Exception as e:
+        logger.exception(u"Set status error")
+        return json_response({
+            'status': 'ERROR',
+            'message': str(e),
+        })
+    return json_response({
+        'device_id': device.device_id,
+        'status': 'OK',
+    })
+
+
+@csrf_exempt
 def device_status(request, device_id):
     device = get_object_or_404(Device, device_id=device_id)
     response_dict = {
