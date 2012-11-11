@@ -28,7 +28,7 @@ class DeviceQuerySet(QuerySet):
 class Device(TimeStampedModel):
     STATUS = Choices('IDLE', 'PAUSED', 'WORKING', 'LEARNING')
     user = models.ForeignKey(User, null=True, blank=True, verbose_name=_(u"Device owner"), related_name='devices')
-    device_id = models.CharField(max_length=50, verbose_name=_(u"Device ID"))
+    device_id = models.CharField(max_length=50, unique=True, verbose_name=_(u"Device ID"))
     name = models.CharField(max_length=100, verbose_name=_(u"Device name"))
 
     status = StatusField()
