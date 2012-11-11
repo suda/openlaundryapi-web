@@ -23,6 +23,11 @@
   <div class="colorbar"></div>
   <div id="container">
   <header>
+    <div class="login">
+        {% for backend in social_auth.backends %}
+        <a class="{{ backend }}" href="{% url 'socialauth_begin' backend %}?{{ redirect_querystring }}"></a>
+        {% endfor %}
+    </div>
     <div class="logo">
         <img src="{{ STATIC_URL }}img/logo.png" />
     </div>
@@ -54,9 +59,6 @@
     </div>
   </div> <!-- /container -->
   <div class="colorbar"></div>
-    <footer>
-    <p>&copy; <a href="#">Open Laundry API</a> 2012</p>
-    </footer>
 
   <script defer src="{{ STATIC_URL }}js/plugins.js"></script>
   <script defer src="{{ STATIC_URL }}js/script.js"></script>
