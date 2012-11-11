@@ -108,7 +108,6 @@ def device_status(request, device_id):
         progress = timestamp / interval
         time_start = interval * math.floor(progress)
         progress = progress - math.floor(progress)
-        print progress
 
         current_program = ''
         for program in programs:
