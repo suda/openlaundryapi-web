@@ -46,6 +46,7 @@ def collect_data(request, device_id, token):
         wash = device.get_latest_wash()
 
         logger.info('Incoming data from device: %s', device)
+        logger.debug(request.body)
         data = request.body.split(',')
         samples = np.array([int(d) for d in data])
         logger.info('Received %s samples', len(samples))
