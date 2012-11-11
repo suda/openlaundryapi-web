@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
 
 from datetime import datetime
 import hashlib
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
+from django.utils.translation import ugettext_lazy as _
 
 from devices.models import Device
 
@@ -12,6 +14,13 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
     token = models.CharField(max_length=40, unique=True)
     debug = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = _(u"User profile")
+        verbose_name_plural = _(u"User profiles")
+
+    def __unicode__(self):
+        return self.user.username
 
 
 def create_profile(sender, instance, created, **kwargs):
