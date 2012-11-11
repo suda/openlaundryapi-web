@@ -8,6 +8,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'', include('social_auth.urls')),
     url(r'^$', 'openlaundryapi.views.index', name='main'),
+    url(r'^landing/$', 'openlaundryapi.views.landing', name='landing'),
     url(r'^logout/$', logout, name='logout', kwargs={'next_page': '/'}),
 
     url(r'^api/', include('api.urls')),

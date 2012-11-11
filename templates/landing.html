@@ -1,0 +1,65 @@
+{% load url from future %}{% load i18n %}<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>{% block title %}Open Laundry API{% endblock %}</title>
+  <meta name="description" content="">
+  <meta name="author" content="Open Laundry API">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL }}css/main.less">
+  {% block extra-style %}{% endblock %}
+  <script src="{{ STATIC_URL }}js/libs/modernizr-2.5.3.min.js"></script>
+  <script src="{{ STATIC_URL }}js/libs/less-1.3.0.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}js/libs/jquery-1.7.2.min.js"><\/script>')</script>
+</head>
+
+<body>
+  <div id="container">
+  <header>
+    <div class="logo">
+        <img src="{{ STATIC_URL }}/img/logo.png" />
+    </div>
+    <ul class="nav">
+        <li><a href="#">home</a></li>
+        <li><a href="#">information</a></li>
+        <li><a href="#">features</a></li>
+        <li><a href="#">applications</a></li>
+        <li><a href="#">contact</a></li>
+    </ul>
+  </header>
+
+    <div class="content" role="main">
+        <div>
+        <h1>zarządzaj zdalnie swoją pralką</h1>
+        <p>
+        <strong>Czyli pranie w chmurze.</strong>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id justo ligula. Nunc vel arcu dui, hendrerit vehicula sapien. Nulla tincidunt eleifend nulla, in lobortis neque pulvinar sit amet.
+        </p>
+        </div>
+        <div id="mail-form">
+            <form action="http://appsome.us2.list-manage1.com/subscribe/post?u=61518d370e15d23f88b79653f&amp;id=57f49773d6" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+                <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+            </form>
+        </div>
+    </div>
+    <footer>
+    <p>&copy; <a href="#">Open Laundry API</a> 2012</p>
+    </footer>
+  </div> <!-- /container -->
+
+  <script defer src="{{ STATIC_URL }}js/plugins.js"></script>
+  <script defer src="{{ STATIC_URL }}js/script.js"></script>
+  {% block extra-script %}{% endblock %}
+  <!--[if lt IE 7 ]>
+    <script defer src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    <script defer>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+  <![endif]-->
+</body>
+</html>
