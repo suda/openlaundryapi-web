@@ -137,8 +137,8 @@ def device_status(request, device_id):
             'program': '',
         }
         wash = device.get_latest_wash()
-        response_dict['time_started'] = str(wash.created)
         if device.status in ['WORKING', 'PAUSED']:
+            response_dict['time_started'] = str(wash.created)
             response_dict['time_remaining'] = '00:00:00'
 
     return json_response(response_dict)
