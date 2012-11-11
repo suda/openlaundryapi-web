@@ -48,7 +48,7 @@ def collect_data(request, device_id, token):
         logger.info('Incoming data from device: %s', device)
         logger.debug(request.body)
         data = request.body.split(',')
-        samples = np.array([int(d) for d in data])
+        samples = np.array([int(d) for d in data if d])
         logger.info('Received %s samples', len(samples))
         logger.info('Writing samples to file: %s', wash.data_file)
         wash.write_samples(samples)
