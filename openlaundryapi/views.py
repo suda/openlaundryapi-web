@@ -8,3 +8,7 @@ def index(request):
         return redirect('users-dashboard')
     return render(request, "index.html", {
     })
+
+
+def landing(request):
+    return render(request, "landing.html")
