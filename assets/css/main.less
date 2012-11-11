@@ -2,13 +2,69 @@
 @import "variables.less";
 @import "mixins.less";
 
+@import "fonts.less";
+
 body {
-    background: #fff;
+    background: #fff url("../img/bg.png") 50% 0 no-repeat;
     color: #404040;
     font: 12px normal Verdana, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+.colorbar {
+    background: #ccc url("../img/colorbar.png") 50% 0 no-repeat;
+    height: 5px;
+    width: 100%;
 }
 
 #container {
+    width: 960px;
+    min-height: 800px;
+    margin: 0 auto;
+}
+.logo {
+    margin-top: 25px;
+}
+.nav {
+    list-style: none;
+    font-size: 25px;
+    float: left;
+    width: 100%;
+    margin: 20px 0;
+    padding: 0;
+    li {
+        font-family: "klavika_rgregular";
+        float: left;
+        margin-right: 40px;
+        &.active {
+        }
+    }
+    a {
+        color: #fff;
+        text-decoration: none;
+    }
+}
+
+.promo {
+    width: 500px;
+    height: 350px;
+    padding-top: 70px;
+    h1 {
+        font-family: "klavika_rgregular";
+        font-weight: normal;
+        font-size: 50px;
+        color: #03102c;
+        width: 260px;
+        line-height: 42px;
+        letter-spacing: -1px;
+    }
+    p {
+        width: 220px;
+        line-height: 1.7;
+    }
+}
+
+footer {
     width: 960px;
     margin: 0 auto;
 }
