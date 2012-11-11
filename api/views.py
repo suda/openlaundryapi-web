@@ -9,7 +9,7 @@ import math
 
 import numpy as np
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseServerError
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
@@ -23,6 +23,13 @@ logger = logging.getLogger(__name__)
 def json_response(data):
     data = json.dumps(data)
     response = HttpResponse(data)
+    response['Content-Type'] = 'application/json'
+    return response
+
+
+def json_error(data):
+    data = json.dumps(data)
+    response = HttpResponseServerError(data)
     response['Content-Type'] = 'application/json'
     return response
 
@@ -51,7 +58,7 @@ def collect_data(request, device_id, token):
 
     except Exception as e:
         logger.exception(u"Collect data error")
-        return json_response({
+        return json_error({
             'status': 'ERROR',
             'message': str(e),
         })
