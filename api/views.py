@@ -30,6 +30,7 @@ def json_response(data):
 @csrf_exempt
 def collect_data(request, device_id, token):
     profile = get_object_or_404(UserProfile, token=token)
+    logger.debug(request.body)
     try:
         data = json.loads(request.body)
 
