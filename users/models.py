@@ -10,7 +10,7 @@ from devices.models import Device
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    token = models.CharField(max_length=40)
+    token = models.CharField(max_length=40, unique=True)
     debug = models.BooleanField(default=False)
 
 
