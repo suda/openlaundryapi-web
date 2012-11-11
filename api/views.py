@@ -132,7 +132,7 @@ def device_status(request, device_id):
             'program': current_program,
             'time_started': None if status == 'IDLE' else datetime.datetime.fromtimestamp(time_start).isoformat(),
             'time_remaining': None if status == 'IDLE' else str(datetime.timedelta(seconds=(interval - (interval * progress)))),
-            'progress': None if status == 'IDLE' else str(int(progress * (100 / 90)))
+            'progress': None if status == 'IDLE' else str(int(progress * 100 *(100 / 90)))
         }
 
     else:
