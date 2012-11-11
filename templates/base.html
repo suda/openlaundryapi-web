@@ -60,11 +60,6 @@
     <div class="content" role="main">
       <div class="row">
         <div class="span12">
-            {% block page-header-wrap %}
-            <div class="page-header">
-                <h1>{% block page-header %}{% endblock %}</h1>
-            </div>
-            {% endblock %}
             {% if messages %}
                 <div class="messages">
                     {% for message in messages %}
@@ -74,6 +69,13 @@
                             {{ message }}
                         </div>
                     {% endfor %}
+                </div>
+            {% endif %}
+            {% if user.get_profile.debug %}
+                <div class="messages">
+                    <div class="alert alert-block alert-warning">
+                        You're running in debug mode. All devices will show simulated status. <a href="https://github.com/OpenLaundryAPI/web/wiki/Debugging" target="_blank">See wiki</a> or turn off debug mode in <a href="{% url 'users-edit_profile' %}">edit profile</a> page.
+                    </div>
                 </div>
             {% endif %}
             {% block content %}{% endblock %}
