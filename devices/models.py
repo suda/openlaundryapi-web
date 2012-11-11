@@ -3,6 +3,9 @@
 import os
 import numpy as np
 
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
+
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
@@ -74,3 +77,25 @@ class Wash(TimeStampedModel):
             existing_data = np.load(self.data_file)
             samples = np.append(existing_data, samples)
         np.save(self.data_file, samples)
+
+
+def split_chunks(samples, chunk_length):
+    for offset in range(0, len(samples), chunk_length):
+        yield samples[offset:offset + chunk_length]
+
+
+def reduce_samples(data_file):
+    samples = np.load(data_file)
+    sample_frequency = 1000
+    power = np.square(samples)
+    # one minute of samples
+    chunk_length = sample_frequency * 60
+    mean_power = np.array([np.mean(chunk) for chunk in split_chunks(power, chunk_length)])
+    fig = Figure()
+    canvas = FigureCanvas(fig)
+    ax = fig.add_subplot(111)
+    ax.plot(mean_power)
+    chart_name = data_file.replace('.npy', '.png')
+    ax.set_title('Average electric load')
+    fig.savefig(chart_name)
+
