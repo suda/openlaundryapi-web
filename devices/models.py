@@ -76,7 +76,24 @@ class Wash(TimeStampedModel):
         if os.path.exists(self.data_file):
             existing_data = np.load(self.data_file)
             samples = np.append(existing_data, samples)
+        self.reduce_samples(samples)
         np.save(self.data_file, samples)
+
+    def reduce_samples(self, samples):
+        sample_frequency = 1000
+        power = np.square(samples)
+        # one minute of samples
+        chunk_length = sample_frequency * 60
+        mean_power = np.array([np.mean(chunk) for chunk in split_chunks(power, chunk_length)])
+        fig = Figure()
+        canvas = FigureCanvas(fig)
+        ax = fig.add_subplot(111)
+        ax.plot(mean_power)
+        ax.set_title('Average electric load')
+        fig.savefig(self.get_chart_filename())
+
+    def get_chart_filename(self):
+        return self.data_file.replace('.npy', '.png')
 
 
 def split_chunks(samples, chunk_length):
@@ -84,18 +101,4 @@ def split_chunks(samples, chunk_length):
         yield samples[offset:offset + chunk_length]
 
 
-def reduce_samples(data_file):
-    samples = np.load(data_file)
-    sample_frequency = 1000
-    power = np.square(samples)
-    # one minute of samples
-    chunk_length = sample_frequency * 60
-    mean_power = np.array([np.mean(chunk) for chunk in split_chunks(power, chunk_length)])
-    fig = Figure()
-    canvas = FigureCanvas(fig)
-    ax = fig.add_subplot(111)
-    ax.plot(mean_power)
-    chart_name = data_file.replace('.npy', '.png')
-    ax.set_title('Average electric load')
-    fig.savefig(chart_name)
 
