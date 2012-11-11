@@ -120,7 +120,8 @@ def device_status(request, device_id):
             'status': status,
             'program': current_program,
             'time_started': None if status == 'IDLE' else datetime.datetime.fromtimestamp(time_start).isoformat(),
-            'time_remaining': None if status == 'IDLE' else str(datetime.timedelta(seconds=(interval - (interval * progress))))
+            'time_remaining': None if status == 'IDLE' else str(datetime.timedelta(seconds=(interval - (interval * progress)))),
+            'progress': None if status == 'IDLE' else str(int(progress * 100))
         }
 
     else:
@@ -129,6 +130,7 @@ def device_status(request, device_id):
             'name': device.name,
             'status': device.status,
             'program': '',
+            'progress': 0
         }
         wash = device.get_latest_wash()
         response_dict['time_started'] = str(wash.created)
