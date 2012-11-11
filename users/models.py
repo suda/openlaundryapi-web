@@ -30,6 +30,7 @@ def create_profile(sender, instance, created, **kwargs):
     if created:
         profile, created = UserProfile.objects.get_or_create(user=instance)
         profile.token = hashlib.sha1("%s%s" % (datetime.now(), instance.username)).hexdigest()
+        profile.debug = True
         profile.save()
 
 
