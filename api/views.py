@@ -38,8 +38,6 @@ def json_error(data):
 def collect_data(request, device_id, token):
     profile = get_object_or_404(UserProfile, token=token)
     try:
-        data = json.loads(request.body)
-
         # find device
         try:
             device = Device.objects.get(device_id=device_id, user=profile.user)
@@ -48,10 +46,9 @@ def collect_data(request, device_id, token):
         wash = device.get_latest_wash()
 
         logger.info('Incoming data from device: %s', device)
-        timestamp_start = long(data['timestamp_start'])
-        samples = np.array([int(d) for d in data['data']])
-        timestamp_end = long(data['timestamp_end'])
-        logger.info('Received %s samples from %s to %s', len(samples), timestamp_start, timestamp_end)
+        data = request.body.split(',')
+        samples = np.array([int(d) for d in data])
+        logger.info('Received %s samples', len(samples))
         logger.info('Writing samples to file: %s', wash.data_file)
         wash.write_samples(samples)
 
