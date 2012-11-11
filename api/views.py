@@ -8,6 +8,7 @@ import time
 import math
 
 import numpy as np
+
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
@@ -45,10 +46,7 @@ def collect_data(request, device_id, token):
         timestamp_end = long(data['timestamp_end'])
         logger.info('Received %s samples from %s to %s', len(samples), timestamp_start, timestamp_end)
         logger.info('Writing samples to file: %s', wash.data_file)
-        if os.path.exists(wash.data_file):
-            existing_data = np.load(wash.data_file)
-            samples = np.append(existing_data, samples)
-        np.save(wash.data_file, samples)
+        wash.write_samples(samples)
 
     except Exception as e:
         logger.exception(u"Collect data error")
