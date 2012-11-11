@@ -40,3 +40,5 @@ local_settings.py
 
 # log file
 *.log
+
+data/
