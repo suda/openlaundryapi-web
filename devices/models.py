@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import numpy as np
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -67,3 +68,9 @@ class Wash(TimeStampedModel):
 
     def __unicode__(self):
         return u"%s - wash %d" % (self.device.name, self.id)
+
+    def write_samples(self, samples):
+        if os.path.exists(self.data_file):
+            existing_data = np.load(self.data_file)
+            samples = np.append(existing_data, samples)
+        np.save(self.data_file, samples)
