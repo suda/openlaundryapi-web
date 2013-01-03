@@ -151,6 +151,7 @@ INSTALLED_APPS = (
     'crispy_forms',
     'tastypie',
     'bootstrap-pagination',
+    'raven.contrib.django',
 
     'api',
     'users',
@@ -256,6 +257,8 @@ GITHUB_APP_ID = ''
 GITHUB_API_SECRET = ''
 
 WASH_DATA_ROOT = project_path('../data/')
+
+SENTRY_DSN = ''
 
 try:
     from local_settings import *
