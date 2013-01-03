@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import smart_str
 
 from devices.models import Device
 
@@ -29,7 +30,7 @@ def create_profile(sender, instance, created, **kwargs):
     """
     if created:
         profile, created = UserProfile.objects.get_or_create(user=instance)
-        profile.token = hashlib.sha1("%s%s" % (datetime.now(), instance.username)).hexdigest()
+        profile.token = hashlib.sha1("%s%s" % (datetime.now(), smart_str(instance.username))).hexdigest()
         profile.debug = True
         profile.save()
 
