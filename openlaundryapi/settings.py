@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse_lazy
 def project_path(path):
     return os.path.abspath(os.path.join(os.path.dirname(__file__), path))
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
